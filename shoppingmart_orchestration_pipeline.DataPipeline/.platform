@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "DataPipeline",
+    "displayName": "shoppingmart_orchestration_pipeline"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "c3babf98-f0fa-89ff-4af5-0fa76cc19a70"
+  }
+}

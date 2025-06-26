@@ -1,0 +1,129 @@
+{
+  "properties": {
+    "activities": [
+      {
+        "type": "InvokePipeline",
+        "typeProperties": {
+          "parameters": {},
+          "waitOnCompletion": true,
+          "workspaceId": "00000000-0000-0000-0000-000000000000",
+          "pipelineId": "bd17d04c-4e2b-848d-48c9-8173b6b46135",
+          "operationType": "InvokeFabricPipeline"
+        },
+        "externalReferences": {
+          "connection": "1d840fc9-ff36-4ce9-beee-6f6ffd2dcff6"
+        },
+        "policy": {
+          "timeout": "0.12:00:00",
+          "retry": 0,
+          "retryIntervalInSeconds": 30,
+          "secureInput": false,
+          "secureOutput": false
+        },
+        "name": "Run_Structured_Ingest_Data_Pipeline",
+        "dependsOn": []
+      },
+      {
+        "type": "InvokePipeline",
+        "typeProperties": {
+          "parameters": {},
+          "waitOnCompletion": true,
+          "workspaceId": "00000000-0000-0000-0000-000000000000",
+          "pipelineId": "ecbece2e-e8cc-b2dd-449e-46868f9c4389",
+          "operationType": "InvokeFabricPipeline"
+        },
+        "externalReferences": {
+          "connection": "1d840fc9-ff36-4ce9-beee-6f6ffd2dcff6"
+        },
+        "policy": {
+          "timeout": "0.12:00:00",
+          "retry": 0,
+          "retryIntervalInSeconds": 30,
+          "secureInput": false,
+          "secureOutput": false
+        },
+        "name": "Run_UnStructured_Ingest_Data_Pipeline",
+        "dependsOn": [
+          {
+            "activity": "Run_Structured_Ingest_Data_Pipeline",
+            "dependencyConditions": [
+              "Succeeded"
+            ]
+          }
+        ]
+      },
+      {
+        "type": "TridentNotebook",
+        "typeProperties": {
+          "notebookId": "f1697916-8b6f-991b-4454-cac0b45894d1",
+          "workspaceId": "00000000-0000-0000-0000-000000000000"
+        },
+        "policy": {
+          "timeout": "0.12:00:00",
+          "retry": 0,
+          "retryIntervalInSeconds": 30,
+          "secureInput": false,
+          "secureOutput": false
+        },
+        "name": "Notebook_SilverLayer_Transformations",
+        "dependsOn": [
+          {
+            "activity": "Run_UnStructured_Ingest_Data_Pipeline",
+            "dependencyConditions": [
+              "Succeeded"
+            ]
+          }
+        ]
+      },
+      {
+        "type": "TridentNotebook",
+        "typeProperties": {
+          "notebookId": "58f2d729-4a44-b5d4-4cce-3f3bbdc5da81",
+          "workspaceId": "00000000-0000-0000-0000-000000000000"
+        },
+        "policy": {
+          "timeout": "0.12:00:00",
+          "retry": 0,
+          "retryIntervalInSeconds": 30,
+          "secureInput": false,
+          "secureOutput": false
+        },
+        "name": "Notebook_GoldLayer_Transformations",
+        "dependsOn": [
+          {
+            "activity": "Notebook_SilverLayer_Transformations",
+            "dependencyConditions": [
+              "Succeeded"
+            ]
+          }
+        ]
+      },
+      {
+        "type": "Office365Outlook",
+        "typeProperties": {
+          "inputs": {
+            "body": {
+              "To": "thanapon_team@hotmail.com",
+              "Subject": "[Success] Orachestration Pipeline Shoppingmart",
+              "Body": "<p>[Success] Orachestration Pipeline Shoppingmart</p>\n<p>Workspace ID: @{pipeline().DataFactory}</p>\n<p>Pipeline ID: @{pipeline().Pipeline}</p>\n<p>Pipeline run ID: @{pipeline().RunId}</p>\n<p>====Activity outputs====</p>\n<p>Bronze Structure Data Pipeline: @{activity('Run_Structured_Ingest_Data_Pipeline').output}</p>\n<p>Bronze UnStructure Data Pipeline: @{activity('Run_UnStructured_Ingest_Data_Pipeline').output}</p>\n<p>Silver Notebook: @{activity('Notebook_SilverLayer_Transformations').output}</p>\n<p>Gold Notebook: @{activity('Notebook_GoldLayer_Transformations').output}</p>",
+              "Cc": "thanapon.yenjam@gmail.com",
+              "Sensitivity": "",
+              "Importance": "Normal"
+            },
+            "method": "post",
+            "path": "/v2/Mail"
+          }
+        },
+        "name": "Office 365 Outlook1",
+        "dependsOn": [
+          {
+            "activity": "Notebook_GoldLayer_Transformations",
+            "dependencyConditions": [
+              "Succeeded"
+            ]
+          }
+        ]
+      }
+    ]
+  }
+}
