@@ -1,0 +1,35 @@
+table gold_review
+	lineageTag: e82fe879-39f6-4387-8292-90ede3b70c13
+	sourceLineageTag: [dbo].[gold_review]
+
+	column product_id
+		dataType: string
+		sourceProviderType: varchar(8000)
+		lineageTag: 4a1e0cca-ac70-4768-9002-843afa1e6dab
+		sourceLineageTag: product_id
+		summarizeBy: none
+		sourceColumn: product_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column AvgRating
+		dataType: double
+		sourceProviderType: float
+		lineageTag: 4429962c-1695-4e82-a271-4f37bd7d52f3
+		sourceLineageTag: AvgRating
+		summarizeBy: none
+		sourceColumn: AvgRating
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	partition gold_review = entity
+		mode: directLake
+		source
+			entityName: gold_review
+			schemaName: dbo
+			expressionSource: DatabaseQuery
+
+	annotation PBI_ResultType = Table
+

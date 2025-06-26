@@ -1,0 +1,12 @@
+relationship 0f153baf-dc52-2b9b-12bc-21ebca5fe872
+	fromColumn: gold_customers_orderdata.ProductID
+	toColumn: gold_review.product_id
+
+relationship 543af32d-dea7-5bb4-7153-e0ccf2836dee
+	fromColumn: gold_customers_orderdata.CustomerID
+	toColumn: gold_web_logs.user_id
+
+relationship 7570f9ce-f8b7-8238-4177-e2b0164400f7
+	fromColumn: gold_customers_orderdata.OrderDate
+	toColumn: DateTable.Date
+

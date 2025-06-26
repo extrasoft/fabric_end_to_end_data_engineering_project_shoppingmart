@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "SemanticModel",
+    "displayName": "shoppingmart_model"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "892b3854-dbe7-9370-4adc-d8bd076f22af"
+  }
+}

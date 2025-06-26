@@ -1,0 +1,44 @@
+table gold_social_media
+	lineageTag: 7c70ecff-4560-469a-8ef9-6a31609a0c5e
+	sourceLineageTag: [dbo].[gold_social_media]
+
+	column platform
+		dataType: string
+		sourceProviderType: varchar(8000)
+		lineageTag: 0340cee2-79a8-43c4-b80b-d65a8d4c8338
+		sourceLineageTag: platform
+		summarizeBy: none
+		sourceColumn: platform
+
+		annotation SummarizationSetBy = Automatic
+
+	column sentiment
+		dataType: string
+		sourceProviderType: varchar(8000)
+		lineageTag: d2a87e0c-c313-4777-bcdc-aa26d12122ee
+		sourceLineageTag: sentiment
+		summarizeBy: none
+		sourceColumn: sentiment
+
+		annotation SummarizationSetBy = Automatic
+
+	column count
+		dataType: int64
+		formatString: 0
+		sourceProviderType: bigint
+		lineageTag: 46eafe58-f26e-441e-a9a0-7907f707996a
+		sourceLineageTag: count
+		summarizeBy: sum
+		sourceColumn: count
+
+		annotation SummarizationSetBy = Automatic
+
+	partition gold_social_media = entity
+		mode: directLake
+		source
+			entityName: gold_social_media
+			schemaName: dbo
+			expressionSource: DatabaseQuery
+
+	annotation PBI_ResultType = Table
+

@@ -101,7 +101,7 @@ display(reviews_df.head(100))
 # CELL ********************
 
 # Orders_df.write.mode("overwrite").parquet("Files/ShoppingMart_Gold_Orders/ShoppingMart_customers_orderdata")
-weblogs_df.write.format("delta").mode("overwrite").saveAsTable("gold_customers_orderdata")
+Orders_df.write.format("delta").mode("overwrite").saveAsTable("gold_customers_orderdata")
 display(Orders_df.head(100))
 
 # METADATA ********************

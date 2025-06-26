@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "Report",
+    "displayName": "shoppingmart_analytics_report"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "311c7d2b-198a-8fba-4c59-9ac34e9fdceb"
+  }
+}
