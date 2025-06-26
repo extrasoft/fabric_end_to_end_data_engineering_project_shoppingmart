@@ -115,6 +115,8 @@
           }
         },
         "name": "Office 365 Outlook1",
+        "state": "Inactive",
+        "onInactiveMarkAs": "Succeeded",
         "dependsOn": [
           {
             "activity": "Notebook_GoldLayer_Transformations",
